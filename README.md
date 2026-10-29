@@ -1,120 +1,178 @@
-💳 Credit Card Fraud Detection
-Author: Macwan Alex David
-Project Type: Machine Learning / Supervised Learning
-Repository: https://github.com/macwanalex07-bot/Credit-Card-Fraud-Detection
-📌 Project Overview
-Credit Card Fraud Detection is a supervised machine-learning project that identifies potentially fraudulent transactions from transaction data. Fraud is a highly imbalanced classification problem: legitimate transactions greatly outnumber fraudulent ones. For that reason, this project evaluates models using fraud-class Precision, Recall, F1-score, and Precision–Recall AUC (PR-AUC), rather than relying on accuracy alone.
+# Credit Card Fraud Detection Using Supervised Learning
 
-The project follows the practical workflow for loading and sampling data, exploratory analysis, feature engineering, scaling, imbalance handling, model training, hyperparameter tuning, threshold optimisation, cost-benefit analysis, and saving a final model pipeline.
-🎯 Objectives
-- Explore transaction data and measure the class imbalance.
-- Engineer features from transaction Time and Amount.
-- Compare methods for handling class imbalance.
-- Train and evaluate Logistic Regression, Random Forest, and XGBoost models.
-- Tune XGBoost hyperparameters using cross-validation.
-- Optimise the fraud classification threshold.
-- Compare models using fraud-class Precision, Recall, F1-score, and PR-AUC.
-- Estimate business costs and benefits using the assumptions in the practical.
-- Save a model pipeline for reuse.
-📊 Dataset
-Dataset: Credit Card Fraud Detection
-Source: Kaggle — https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud
+## 1. Project Overview
 
-The dataset contains anonymised transaction features, including PCA-transformed features V1–`V28`, plus Time, Amount, and the target column Class.
+Credit Card Fraud Detection is a machine learning project that identifies fraudulent credit card transactions using supervised learning algorithms. The main objective is to distinguish legitimate transactions from fraudulent transactions and reduce financial losses caused by fraud.
+
+This project uses Python, data analysis, data visualization, and machine learning techniques to build and evaluate fraud detection models.
+
+## 2. Objectives
+
+- Analyze credit card transaction data.
+- Identify patterns in fraudulent and legitimate transactions.
+- Handle the class imbalance problem.
+- Train and compare multiple machine learning models.
+- Evaluate models using precision, recall, F1-score, and PR-AUC.
+- Select an appropriate classification threshold.
+- Estimate the financial impact of fraud detection.
+- Save the trained model for future predictions.
+
+## 3. Dataset
+
+Dataset Name: Credit Card Fraud Detection
+
+Dataset Source: Kaggle
+
+Dataset Link: https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud
+
+The dataset contains transaction details and a target column named `Class`.
+
 - Class = 0: Legitimate transaction
 - Class = 1: Fraudulent transaction
-Download the dataset from Kaggle and place the CSV file in the project folder. Update the path in the notebook if your CSV has a different filename. The dataset is not included in this repository unless it has been separately added.
-🧰 Technologies and Libraries
+
+The dataset includes `Time`, `Amount`, anonymized features `V1` to `V28`, and the target variable `Class`.
+
+The dataset is highly imbalanced because legitimate transactions greatly outnumber fraudulent transactions.
+
+## 4. Technologies Used
+
 - Python
-- pandas and NumPy
-- Matplotlib and Seaborn
-- scikit-learn
-- imbalanced-learn (SMOTE and random undersampling)
+- Jupyter Notebook
+- Pandas
+- NumPy
+- Matplotlib
+- Seaborn
+- Scikit-learn
+- Imbalanced-learn
 - XGBoost
 - Joblib
-- Jupyter Notebook
-🔍 Project Workflow
-1. Problem Framing and Exploratory Data Analysis
-- Load the dataset and inspect its shape and descriptive statistics.
-- Check the fraud/legitimate class distribution.
-- Explore Time and Amount.
-- Plot class counts, distributions, and feature correlations.
-2. Feature Engineering and Scaling
-- Create Amount_log = log1p(Amount).
-- Derive Hour from Time using the notebook's specified formula.
-- Remove the original Time and Amount columns after feature creation.
-- Apply StandardScaler to Amount_log and Hour; the PCA features are already scaled.
-3. Train-Test Split and Imbalance Handling
-- Use a stratified 80/20 train-test split.
-- Compare the original imbalanced training set, SMOTE oversampling, and random undersampling.
-- Apply resampling to training data only; leave the test set unchanged.
-4. Model Training
-- Logistic Regression on the original, SMOTE, and undersampled training sets.
-- Random Forest using the selected imbalance strategy.
-- Baseline XGBoost with class imbalance weighting.
-- XGBoost hyperparameter tuning with RandomizedSearchCV, three-fold cross-validation, and average precision scoring.
-5. Threshold Optimisation
-- Compare the default classification threshold of 0.5 with an F1-optimal threshold.
-- Find a threshold that achieves Recall of at least 0.90, when possible.
-- Compare Precision, Recall, F1-score, and PR-AUC.
-6. Business Cost-Benefit Analysis
-The practical uses these assumptions:
-- Average fraudulent transaction value: ₹4,500
-- Investigation cost per flagged transaction: ₹150
-- Money saved = TP × ₹4,500
-- Investigation cost = (TP + FP) × ₹150
-- Money lost = FN × ₹4,500
-- Net benefit = Money saved − Investigation cost
-These are educational assumptions, not a guarantee of real-world financial outcomes.
-7. Saving the Model
-The notebook saves a Joblib .pkl model artifact and demonstrates loading it to predict a sample of transactions. Use the exact input columns and preprocessing expected by the saved pipeline.
-📈 Evaluation Metrics
-Metric	Meaning
-Precision (Fraud)	Of transactions flagged as fraud, the proportion that are truly fraudulent
-Recall (Fraud)	Of actual fraud transactions, the proportion detected
-F1-score (Fraud)	Harmonic mean of fraud precision and recall
-PR-AUC / Average Precision	Summarises precision–recall performance across thresholds
-Confusion matrix	Counts true positives, false positives, true negatives, and false negatives
 
+## 5. Project Workflow
 
-Why not accuracy alone? A model can obtain high accuracy by predicting almost every transaction as legitimate while missing fraud. Precision–Recall metrics give a more useful view of minority-class detection.
-⚙️ Installation
-Use Python 3.10 or a compatible version supported by the installed packages.
-1. Clone this repository:
-   git clone https://github.com/macwanalex07-bot/Credit-Card-Fraud-Detection.git
-   cd Credit-Card-Fraud-Detection
-2. Install dependencies:
-   pip install -r requirements.txt
-   If requirements.txt is not yet in the repository, install the main packages with:
-   pip install pandas numpy matplotlib seaborn scikit-learn imbalanced-learn xgboost joblib jupyter
-3. Download creditcard.csv from the Kaggle dataset page and place it in the project directory, or update the notebook's dataset path.
-▶️ How to Run
-1. Open the repository folder in Jupyter Notebook or JupyterLab.
-2. Open the fraud-detection .ipynb notebook.
-3. Verify the CSV path in the data-loading cell.
-4. Run the notebook cells in order, from data loading through model evaluation and saving.
-5. Review the printed class distributions, comparison tables, plots, selected threshold, and cost-benefit calculations.
-6. Confirm that the model artifact was saved successfully.
-If the notebook has a different filename in the repository, open the .ipynb file that contains the full practical workflow.
-📁 Suggested Repository Structure
+### Step 1: Problem Framing
+
+Define the fraud detection problem, understand the business requirements, and identify the importance of detecting fraudulent transactions.
+
+### Step 2: Exploratory Data Analysis
+
+- Load and inspect the dataset.
+- Check missing values and data distributions.
+- Analyze the number of legitimate and fraudulent transactions.
+- Compare transaction amounts and transaction times.
+- Visualize relationships between selected features.
+
+### Step 3: Feature Engineering and Preprocessing
+
+- Create a log-transformed transaction amount feature.
+- Extract an hour feature from transaction time.
+- Scale the selected features.
+- Split the data into training and testing sets using stratification.
+- Apply techniques to handle class imbalance.
+
+### Step 4: Logistic Regression and Random Forest
+
+Train Logistic Regression models using different class imbalance strategies.
+
+Train a Random Forest classifier and evaluate its performance using fraud precision, fraud recall, F1-score, and PR-AUC.
+
+### Step 5: XGBoost and Threshold Optimization
+
+Train an XGBoost model and tune its hyperparameters.
+
+Compare the baseline and tuned models. Optimize the classification threshold to balance fraud detection and false alarms.
+
+### Step 6: Model Comparison
+
+Compare the trained models using suitable evaluation metrics. Select a model based on fraud detection performance and business requirements rather than accuracy alone.
+
+### Step 7: Cost-Benefit Analysis
+
+Estimate the financial impact of model predictions using the following assumptions:
+
+- Cost of an undetected fraudulent transaction: ₹4,500
+- Cost of investigating a flagged transaction: ₹150
+
+Calculate the estimated savings, investigation costs, losses from missed fraud, and net benefit according to the project's cost-benefit formula.
+
+### Step 8: Model Saving and Reporting
+
+Save the selected model and required preprocessing components using Joblib. Reload the saved model and test it on sample transactions.
+
+Prepare a summary report containing the project objectives, methodology, evaluation results, limitations, and recommendations.
+
+## 6. Evaluation Metrics
+
+### Precision
+
+Precision measures the proportion of transactions predicted as fraud that are actually fraudulent.
+
+### Recall
+
+Recall measures the proportion of actual fraudulent transactions correctly identified by the model.
+
+### F1-Score
+
+The F1-score is the harmonic mean of precision and recall.
+
+### PR-AUC
+
+Precision-Recall Area Under the Curve measures the trade-off between precision and recall across different classification thresholds. It is particularly useful for highly imbalanced datasets.
+
+### Confusion Matrix
+
+A confusion matrix summarizes correct and incorrect predictions using true positives, true negatives, false positives, and false negatives.
+
+## 7. Installation
+
+Install the required libraries using:
+
+    pip install pandas numpy matplotlib seaborn scikit-learn imbalanced-learn xgboost joblib jupyter
+
+Download the dataset from Kaggle and place `creditcard.csv` in the appropriate project directory.
+
+Open the Jupyter Notebook and execute the project steps in order.
+
+## 8. Expected Outcome
+
+The project aims to develop a machine learning model that can identify potentially fraudulent credit card transactions. Comparing different algorithms and imbalance-handling techniques helps determine a suitable model for the dataset.
+
+Actual model performance must be reported using the results obtained from running the notebook.
+
+## 9. Suggested Project Structure
+
 Credit-Card-Fraud-Detection/
-├── README.md
-├── requirements.txt
-├── summary_report.md
-├── fraud_detection_model.pkl
-├── creditcard.csv                 # Download separately; do not commit sensitive data
-└── FraudDetection_SupervisedLearning.ipynb
-The exact notebook and model filenames may differ. Keep the README aligned with the files actually present in the repository.
-🛡️ Limitations and Future Improvements
-- Select thresholds on a validation set and reserve the test set for final evaluation.
-- Evaluate performance on newer transaction data and monitor model drift.
-- Track false-positive workload as well as missed-fraud rates.
-- Add a feedback loop using confirmed fraud outcomes and analyst reviews.
-- Consider real-time scoring, latency monitoring, model versioning, and secure access controls.
-- Reassess the cost assumptions with actual business data before production deployment.
-👤 Author
+
+    README.md
+    requirements.txt
+    creditcard.csv
+    Fraud_Detection.ipynb
+    fraud_detection_model.pkl
+    summary_report.md
+
+Note: Include only files that actually exist in the repository. The dataset and trained model may be kept outside GitHub if they are too large or contain sensitive information.
+
+## 10. Limitations
+
+- The dataset contains anonymized transaction features.
+- The dataset has a severe class imbalance.
+- Model performance depends on the data, preprocessing, and classification threshold.
+- False positives may affect legitimate customers.
+- Fraud patterns can change over time, so real-world systems require monitoring and retraining.
+
+## 11. Conclusion
+
+Credit Card Fraud Detection demonstrates how supervised machine learning can be used to identify suspicious transactions. By applying exploratory data analysis, feature engineering, class imbalance handling, model training, and appropriate evaluation metrics, the project compares different approaches to fraud detection.
+
+The final model should be selected based on measured performance, the cost of missed fraud, and the cost of investigating legitimate transactions incorrectly flagged as fraudulent.
+
+## 12. Author
+
 Macwan Alex David
 
-GitHub: https://github.com/macwanalex07-bot
-⚠️ Disclaimer
-This project is intended for educational purposes and supervised-learning practical work. The model and cost calculations should be independently validated before any real financial decisions or production deployment.
+Project: Credit Card Fraud Detection Using Supervised Learning
+
+GitHub Repository: https://github.com/macwanalex07-bot/Credit-Card-Fraud-Detection.git
+
+## Disclaimer
+
+This project is intended for educational and academic purposes. Its predictions should not be used as the sole basis for real financial decisions without additional validation, security controls, and professional review.
